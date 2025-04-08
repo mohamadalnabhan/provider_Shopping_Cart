@@ -17,9 +17,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-
 flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/  # Make sure this line has correct indentation
+    - assets/images/
+ # Make sure this line has correct indentation

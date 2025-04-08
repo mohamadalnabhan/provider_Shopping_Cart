@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_cart_provider/models/cart.dart';
 import 'package:shopping_cart_provider/models/products.dart';
 
 class Home extends StatefulWidget {
@@ -42,25 +44,49 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("Home"),
         backgroundColor: Colors.white54,
-        actions: <Widget>[Icon(Icons.shopping_cart)], 
+        actions: <Widget>[
+          Row(
+            children: [
+              IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+              Padding(
+                padding: EdgeInsets.only(right: 7),
+                child: Consumer<Cart>(
+                  builder: (context, cart, child) {
+                    return Text("${cart.prodCount}");
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: products.length,
         itemBuilder: (context, index) {
           return Card(
-            child: ListTile(
-              leading: Image.asset(
-                "${products[index].Imguri}",
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover, 
-                errorBuilder: (context, error, stackTrace) {
-                  return Icon(Icons.error); 
-                },
-              ),
-              title: Text("${products[index].name}"),
-              subtitle: Text("\$${products[index].price}"), 
-              trailing: Icon(Icons.add),
+            child: Consumer<Cart>(
+              builder: (context, cart, child) {
+                return ListTile(
+                  leading: Image.asset(
+                    "${products[index].Imguri}",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(Icons.error);
+                    },
+                  ),
+                  title: Text("${products[index].name}"),
+                  subtitle: Text("\$${products[index].price}"),
+                  trailing: InkWell(
+                    onTap: () {
+                      print('hello');
+                      cart.addProd(products[index]);
+                    },
+                    child: Icon(Icons.add),
+                  ),
+                );
+              },
             ),
           );
         },
