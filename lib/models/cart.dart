@@ -10,10 +10,18 @@ class Cart with ChangeNotifier {
     _price += prod.price;
     notifyListeners();
   }
+  void deletePro(Products prod){
+    _prod.remove(prod);
+    _price -= prod.price ;
+    notifyListeners();
+  }
   int get prodCount{
     return _prod.length ;
   }
   double get totalPrice{
     return _price ;
+  }
+  List<Products> get getProdConet {
+    return _prod ;
   }
 }

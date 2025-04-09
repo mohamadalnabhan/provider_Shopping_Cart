@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_cart_provider/models/cart.dart';
 import 'package:shopping_cart_provider/models/products.dart';
+import 'display_cart.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,25 +17,25 @@ class _HomeState extends State<Home> {
       id: "1",
       name: "shoes 1",
       price: 50,
-      Imguri: "assets/images/shoes1.jpg",
+      Imguri: "assets/shoes1.jpg",
     ),
     Products(
       id: "2",
       name: "shoes 2",
       price: 40,
-      Imguri: "assets/images/shoes2.jpg",
+      Imguri: "assets/shoes2.jpg",
     ),
     Products(
       id: "3",
       name: "shoes 3",
       price: 70,
-      Imguri: "assets/images/shoes3.jpg",
+      Imguri: "assets/shoes3.jpg",
     ),
     Products(
       id: "4",
       name: "shoes 4",
       price: 65,
-      Imguri: "assets/images/shoes4.png",
+      Imguri: "assets/shoes4.png",
     ),
   ];
 
@@ -47,7 +48,9 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           Row(
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+              IconButton(onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>DisplayCart()));
+              }, icon: Icon(Icons.shopping_cart)),
               Padding(
                 padding: EdgeInsets.only(right: 7),
                 child: Consumer<Cart>(
@@ -80,7 +83,7 @@ class _HomeState extends State<Home> {
                   subtitle: Text("\$${products[index].price}"),
                   trailing: InkWell(
                     onTap: () {
-                      print('hello');
+                 
                       cart.addProd(products[index]);
                     },
                     child: Icon(Icons.add),
